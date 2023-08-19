@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to the backend system for the OWASP RGIPT Student Chapter's Members Registration & Management. This solution integrates the immutability of Ethereum's blockchain with decentralized storage provided by IPFS. Moreover, the InterPlanetary Name System (IPNS) functionality with Lighthouse is employed for maintaining a consistent address for mutable data, ensuring a transparent, secure, and fail-safe management of student member data.
+Welcome to the backend system for the OWASP RGIPT Student Chapter's Members Registration & Management. This solution integrates the immutability of Ethereum's blockchain with decentralized storage provided by IPFS. Moreover, the InterPlanetary Name System (IPNS) functionality with Lighthouse is employed for maintaining a consistent address for mutable data, ensuring transparent, secure, and fail-safe management of student member data.
 
 ## Directory Structure
 
@@ -102,5 +102,5 @@ This system showcases the synergy of blockchain, decentralized storage, and IPNS
 
 ## License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). All rights reserved to the OWASP RGIPT Student Chapter.
+This project is licensed under the [MIT License](https://github.com/Aryamanraj/owaspMembersAPI/blob/master/LICENSE). All rights reserved to the OWASP RGIPT Student Chapter.
 
