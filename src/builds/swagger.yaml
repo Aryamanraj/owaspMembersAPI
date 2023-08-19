@@ -1,52 +1,185 @@
 openapi: 3.0.0
 info:
-  title: User and Admin Management API
   version: 1.0.0
-  description: API for managing users, admins, and their related operations.
+  title: OWASP RGIPT Members API
+  description: API for OWASP RGIPT Members registration and data storage on blockchain
 
 paths:
-
-  /api/set-user:
+  /set-user:
     post:
-      summary: Set or update user information
+      tags:
+        - User
+      summary: Set user data
+      operationId: setUser
       requestBody:
-        required: true
         content:
           multipart/form-data:
             schema:
               type: object
               properties:
+                image:
+                  type: string
+                  format: binary
                 name:
                   type: string
                 email:
                   type: string
+                  format: email
                 phone:
                   type: string
                 branch:
                   type: string
                 rollNo:
                   type: string
-                image:
-                  type: string
-                  format: binary
+      security:
+        - bearerAuth: []
       responses:
-        200:
-          description: User information set successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  txHash:
-                    type: string
+        '200':
+          description: User data set successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Server error
 
-  /api/set-approval-status:
-    post:
-      summary: Set user approval status
+  /get-user/{rollNo}:
+    get:
+      tags:
+        - User
+      summary: Get user data by roll number
+      operationId: getUserByRollNo
+      parameters:
+        - in: path
+          name: rollNo
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User data retrieved successfully
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+
+  /all-users-status:
+    get:
+      tags:
+        - User
+      summary: Get all users with their approval status
+      operationId: getAllUsersWithStatus
+      responses:
+        '200':
+          description: Users retrieved successfully
+        '500':
+          description: Server error
+
+  /is-approved/{rollNo}:
+    get:
+      tags:
+        - User
+      summary: Check if a user is approved
+      operationId: isUserApproved
+      parameters:
+        - in: path
+          name: rollNo
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Approval status retrieved
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+
+  /delete-user/{rollNo}:
+    delete:
+      tags:
+        - User
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - in: path
+          name: rollNo
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: User not found
+        '500':
+          description: Server error
+
+  /add-admin:
+    put:
+      tags:
+        - Admin
+      summary: Add an admin
+      operationId: addAdmin
       requestBody:
-        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adminAddress:
+                  type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Admin added successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Server error
+
+  /remove-admin:
+    put:
+      tags:
+        - Admin
+      summary: Remove an admin
+      operationId: removeAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adminAddress:
+                  type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Admin removed successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Server error
+
+  /set-approval:
+    put:
+      tags:
+        - Admin
+      summary: Set approval status for a user
+      operationId: setApprovalStatus
+      requestBody:
         content:
           application/json:
             schema:
@@ -55,162 +188,22 @@ paths:
                 rollNo:
                   type: string
                 status:
-                  type: string
+                  type: boolean
+      security:
+        - bearerAuth: []
       responses:
-        200:
-          description: User approval status set successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  txHash:
-                    type: string
+        '200':
+          description: Approval status set successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Server error
 
-  /api/add-admin:
-    post:
-      summary: Add an admin
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                adminAddress:
-                  type: string
-      responses:
-        200:
-          description: Admin added successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  txHash:
-                    type: string
-
-  /api/remove-admin:
-    post:
-      summary: Remove an admin
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                adminAddress:
-                  type: string
-      responses:
-        200:
-          description: Admin removed successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  txHash:
-                    type: string
-
-  /api/delete-user/{rollNo}:
-    delete:
-      summary: Delete a user by roll number
-      parameters:
-        - name: rollNo
-          in: path
-          required: true
-          description: Roll number of the user
-          schema:
-            type: string
-      responses:
-        200:
-          description: User deleted successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  txHash:
-                    type: string
-
-  /api/get-user-by-rollno/{rollNo}:
-    get:
-      summary: Retrieve user details by roll number
-      parameters:
-        - name: rollNo
-          in: path
-          required: true
-          description: Roll number of the user
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  email:
-                    type: string
-                  phone:
-                    type: string
-                  branch:
-                    type: string
-                  fileCID:
-                    type: string
-                  approved:
-                    type: string
-                  imageUrl:
-                    type: string
-
-  /api/get-all-users-with-status:
-    get:
-      summary: Retrieve all users with their approval status
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    rollNo:
-                      type: string
-                    approved:
-                      type: string
-
-  /api/is-user-approved/{rollNo}:
-    get:
-      summary: Check if a user is approved by roll number
-      parameters:
-        - name: rollNo
-          in: path
-          required: true
-          description: Roll number of the user
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  approved:
-                    type: boolean
-
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
