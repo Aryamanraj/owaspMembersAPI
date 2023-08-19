@@ -1,0 +1,216 @@
+openapi: 3.0.0
+info:
+  title: User and Admin Management API
+  version: 1.0.0
+  description: API for managing users, admins, and their related operations.
+
+paths:
+
+  /api/set-user:
+    post:
+      summary: Set or update user information
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                branch:
+                  type: string
+                rollNo:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: User information set successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  txHash:
+                    type: string
+
+  /api/set-approval-status:
+    post:
+      summary: Set user approval status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rollNo:
+                  type: string
+                status:
+                  type: string
+      responses:
+        200:
+          description: User approval status set successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  txHash:
+                    type: string
+
+  /api/add-admin:
+    post:
+      summary: Add an admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adminAddress:
+                  type: string
+      responses:
+        200:
+          description: Admin added successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  txHash:
+                    type: string
+
+  /api/remove-admin:
+    post:
+      summary: Remove an admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adminAddress:
+                  type: string
+      responses:
+        200:
+          description: Admin removed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  txHash:
+                    type: string
+
+  /api/delete-user/{rollNo}:
+    delete:
+      summary: Delete a user by roll number
+      parameters:
+        - name: rollNo
+          in: path
+          required: true
+          description: Roll number of the user
+          schema:
+            type: string
+      responses:
+        200:
+          description: User deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  txHash:
+                    type: string
+
+  /api/get-user-by-rollno/{rollNo}:
+    get:
+      summary: Retrieve user details by roll number
+      parameters:
+        - name: rollNo
+          in: path
+          required: true
+          description: Roll number of the user
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
+                  branch:
+                    type: string
+                  fileCID:
+                    type: string
+                  approved:
+                    type: string
+                  imageUrl:
+                    type: string
+
+  /api/get-all-users-with-status:
+    get:
+      summary: Retrieve all users with their approval status
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rollNo:
+                      type: string
+                    approved:
+                      type: string
+
+  /api/is-user-approved/{rollNo}:
+    get:
+      summary: Check if a user is approved by roll number
+      parameters:
+        - name: rollNo
+          in: path
+          required: true
+          description: Roll number of the user
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  approved:
+                    type: boolean
+
