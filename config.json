@@ -1,0 +1,11 @@
+{
+    "privateKey": "PRIVATE_KEY",
+    "infuraProjectId": "INFURA_ID",
+    "infuraAPISecret": "INFURA_SECRET",
+    "contractAddress": "CONTRACT_ADDRESS",
+    "lighthouseApiKey": "LIGHTHOUSE_API_KEY",
+    "ipnsKey": "IPNS_KEY",
+    "ipnsName": "IPNS_NAME",
+    "YOUR_STATIC_USER_TOKEN": "STATIC_USER_TOKEN",
+    "YOUR_STATIC_ADMIN_TOKEN": "STATIC_ADMIN_TOKEN"
+}
