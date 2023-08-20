@@ -5,7 +5,7 @@ info:
   description: API for OWASP RGIPT Members registration and data storage on blockchain
 
 paths:
-  /set-user:
+  /api/set-user:
     post:
       tags:
         - User
@@ -43,7 +43,7 @@ paths:
         '500':
           description: Server error
 
-  /get-user/{rollNo}:
+  /api/get-user/{rollNo}:
     get:
       tags:
         - User
@@ -63,7 +63,7 @@ paths:
         '500':
           description: Server error
 
-  /all-users-status:
+  /api/all-users-status:
     get:
       tags:
         - User
@@ -75,7 +75,7 @@ paths:
         '500':
           description: Server error
 
-  /is-approved/{rollNo}:
+  /api/is-approved/{rollNo}:
     get:
       tags:
         - User
@@ -95,7 +95,7 @@ paths:
         '500':
           description: Server error
 
-  /delete-user/{rollNo}:
+  /api/delete-user/{rollNo}:
     delete:
       tags:
         - User
@@ -121,7 +121,7 @@ paths:
         '500':
           description: Server error
 
-  /add-admin:
+  /api/add-admin:
     put:
       tags:
         - Admin
@@ -147,7 +147,7 @@ paths:
         '500':
           description: Server error
 
-  /remove-admin:
+  /api/remove-admin:
     put:
       tags:
         - Admin
@@ -173,7 +173,7 @@ paths:
         '500':
           description: Server error
 
-  /set-approval:
+  /api/set-approval:
     put:
       tags:
         - Admin
