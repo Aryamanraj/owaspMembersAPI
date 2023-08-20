@@ -7,6 +7,7 @@
     "@lighthouse-web3/sdk": "^0.2.6",
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "ethers": "^6.7.1",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",

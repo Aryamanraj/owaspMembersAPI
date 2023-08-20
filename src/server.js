@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const contractRoutes = require('./routes/contractRoutes');
 const { errorHandler } = require('./middlewares/errorMiddleware');
+const cors = require('cors');
 
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs'); // If your spec is in YAML format
@@ -9,6 +10,7 @@ const YAML = require('yamljs'); // If your spec is in YAML format
 const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/api', contractRoutes);  // All contract routes will be prefixed with '/api'
 
