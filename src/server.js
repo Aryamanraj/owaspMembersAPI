@@ -11,10 +11,19 @@ const app = express();
 const port = 3000;
 
 const corsOptions = {
-  origin: /.*\.owasprgipt\.ac\.in$/, // regex pattern to allow all subdomains
+  origin: function (origin, callback) {
+    // Check if the origin matches any subdomain of owasprgipt.in
+    if (/^https?:\/\/([a-z0-9-]+\.)*owasprgipt\.in$/.test(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(cors(corsOptions));
+
 
 app.use(bodyParser.json());
 app.use("/api", contractRoutes); // All contract routes will be prefixed with '/api'
