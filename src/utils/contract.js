@@ -8,7 +8,7 @@ const privateKey = config.privateKey;
 const infuraProjectId = config.infuraProjectId; 
 const infuraAPISecret = config.infuraAPISecret;
 
-const provider = new ethers.InfuraProvider("goerli", infuraProjectId, infuraAPISecret);
+const provider = new ethers.InfuraProvider("sepolia", infuraProjectId, infuraAPISecret);
 const signer = new ethers.Wallet(privateKey, provider);
 const contract = new ethers.Contract(contractAddress, abi, signer);
 
